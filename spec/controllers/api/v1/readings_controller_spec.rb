@@ -42,7 +42,7 @@ RSpec.describe Api::V1::ReadingsController do
         get :latest_timestamp, params: { id: params[:id] }
 
         expect(response).to have_http_status(:ok)
-        expect(response.body).to eq({ "latest_timestamp" => "2024-01-31T23:04:19+01:00" }.to_json)
+        expect(response.body).to eq({ 'latest_timestamp' => '2024-01-31T23:04:19+01:00' }.to_json)
       end
     end
 

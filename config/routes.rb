@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      post '/readings', to: 'readings#create'
+      resources :readings, only: :create
       get '/readings/latest_timestamp', to: 'readings#latest_timestamp'
       get '/readings/cumulative_count', to: 'readings#cumulative_count'
     end

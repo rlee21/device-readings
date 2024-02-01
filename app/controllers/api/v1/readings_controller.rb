@@ -6,28 +6,32 @@ module Api
       @@events = {}
 
       def create
-        id = reading_params[:id]
+        input = Api::V1::DeviceForm.new(reading_params)
+
+        return render json: input.errors, status: :unprocessable_entity if input.invalid?
+
+        device_id = reading_params[:id]
         readings = reading_params[:readings]
 
-        @@events[id] ||= []
+        @@events[device_id] ||= Set.new
 
         readings.each do |reading|
-          @@events[id] << reading
+          @@events[device_id] << reading
         end
 
         render status: :created
       end
 
       def latest_timestamp
-        id = reading_params[:id]
-        latest_timestamp = @@events[id].max_by { |reading| reading[:timestamp] }[:timestamp]
+        device_id = params[:id]
+        latest_timestamp = @@events[device_id].max_by { |reading| reading[:timestamp] }[:timestamp]
 
         render json: { latest_timestamp: latest_timestamp }
       end
 
       def cumulative_count
-        id = reading_params[:id]
-        cumulative_count = @@events[id].sum { |reading| reading[:count] }
+        device_id = params[:id]
+        cumulative_count = @@events[device_id].sum { |reading| reading[:count] }
 
         render json: { cumulative_count: cumulative_count }
       end
@@ -35,7 +39,7 @@ module Api
       private
 
       def reading_params
-        params.permit(:id, :format, readings: %i[timestamp count])
+        params.require(:reading).permit(:id, readings: %i[timestamp count])
       end
     end
   end

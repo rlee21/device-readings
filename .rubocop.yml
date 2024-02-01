@@ -1,0 +1,25 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  Exclude:
+    - '**/Guardfile'
+    - 'bin/*'
+    - 'vendor/**/*'
+    - 'out/**/*'
+    - 'node_modules/**/*'
+
+  NewCops: enable
+
+Layout/LineLength:
+  Max: 120
+  AllowedPatterns: ['(\s*)# '] # Ignore lines with comments
+  Exclude:
+    - 'spec/**/*'
+
+Style/ClassVars:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false

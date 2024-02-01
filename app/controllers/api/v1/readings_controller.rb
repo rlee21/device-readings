@@ -6,8 +6,8 @@ module Api
       @@events = {}
 
       def create
-        id = event_params[:id]
-        readings = event_params[:readings]
+        id = reading_params[:id]
+        readings = reading_params[:readings]
 
         @@events[id] ||= []
 
@@ -19,23 +19,23 @@ module Api
       end
 
       def latest_timestamp
-        id = event_params[:id]
+        id = reading_params[:id]
         latest_timestamp = @@events[id].max_by { |reading| reading[:timestamp] }[:timestamp]
 
-        render json: { latest_timestamp: }
+        render json: { latest_timestamp: latest_timestamp }
       end
 
       def cumulative_count
-        id = event_params[:id]
+        id = reading_params[:id]
         cumulative_count = @@events[id].sum { |reading| reading[:count] }
 
-        render json: { cumulative_count: }
+        render json: { cumulative_count: cumulative_count }
       end
 
       private
 
-      def event_params
-        params.permit(:id, readings: %i[timestamp count])
+      def reading_params
+        params.permit(:id, :format, readings: %i[timestamp count])
       end
     end
   end

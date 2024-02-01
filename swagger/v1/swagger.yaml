@@ -1,0 +1,47 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/readings":
+    post:
+      summary: creates a reading
+      tags:
+      - Readings
+      parameters: []
+      responses:
+        '201':
+          description: reading created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: 36d5658a-6908-479e-887e-a949ec199272
+                readings:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      timestamp:
+                        type: string
+                        format: date-time
+                        example: '2021-09-29T16:08:15+01:00'
+                      count:
+                        type: integer
+                        example: 2
+                    required:
+                    - timestamp
+                    - count
+              required:
+              - id
+              - readings
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: localhost:3000

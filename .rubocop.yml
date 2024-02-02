@@ -4,11 +4,8 @@ require:
 
 AllCops:
   Exclude:
-    - '**/Guardfile'
     - 'bin/*'
     - 'vendor/**/*'
-    - 'out/**/*'
-    - 'node_modules/**/*'
 
   NewCops: enable
 
@@ -17,6 +14,19 @@ Layout/LineLength:
   AllowedPatterns: ['(\s*)# '] # Ignore lines with comments
   Exclude:
     - 'spec/**/*'
+
+Metrics/ModuleLength:
+  Max: 160
+
+RSpec:
+  Language:
+    Includes:
+      Examples:
+        - run_test! # rswag tests use `run_test!` as examples and without this rubocop will create RSpec/EmptyExampleGroup violations
+
+RSpec/MultipleExpectations:
+  Enabled: true
+  Max: 15
 
 Style/ClassVars:
   Enabled: false

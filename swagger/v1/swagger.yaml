@@ -71,7 +71,7 @@ paths:
         '400':
           description: id parameter missing
         '404':
-          description: device not found
+          description: id not found
   "/api/v1/readings/cumulative_count":
     get:
       summary: fetches cumulative count for a device
@@ -94,13 +94,13 @@ paths:
                 properties:
                   cumulative_count:
                     type: integer
-                    example: 5
+                    example: 17
                 required:
                 - cumulative_count
         '400':
           description: id parameter missing
         '404':
-          description: device not found
+          description: id not found
 servers:
 - url: http://{defaultHost}
   variables:

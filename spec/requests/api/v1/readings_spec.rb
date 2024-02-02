@@ -69,7 +69,7 @@ RSpec.describe 'Device Readings API' do
         run_test!
       end
 
-      response 404, 'device not found' do
+      response 404, 'id not found' do
         let(:id) { '99999999-9999-9999-9999-999999999999' }
 
         run_test!
@@ -86,7 +86,7 @@ RSpec.describe 'Device Readings API' do
       response 200, 'cumulative count found' do
         schema type: :object,
           properties: {
-            cumulative_count: { type: :integer, example: 5 }
+            cumulative_count: { type: :integer, example: 17 }
           },
           required: [ 'cumulative_count' ]
 
@@ -100,7 +100,7 @@ RSpec.describe 'Device Readings API' do
         run_test!
       end
 
-      response 404, 'device not found' do
+      response 404, 'id not found' do
         let(:id) { '99999999-9999-9999-9999-999999999999' }
 
         run_test!

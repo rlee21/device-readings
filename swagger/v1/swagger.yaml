@@ -8,11 +8,13 @@ paths:
     post:
       summary: creates a reading
       tags:
-      - Readings
+      - readings
       parameters: []
       responses:
         '201':
           description: reading created
+        '422':
+          description: invalid request
       requestBody:
         content:
           application/json:
@@ -40,6 +42,65 @@ paths:
               required:
               - id
               - readings
+  "/api/v1/readings/latest_timestamp":
+    get:
+      summary: fetches latest timestamp for a device
+      tags:
+      - readings
+      parameters:
+      - name: id
+        in: query
+        required: true
+        example: 36d5658a-6908-479e-887e-a949ec199272
+        schema:
+          type: string
+      responses:
+        '200':
+          description: latest timestamp found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  latest_timestamp:
+                    type: string
+                    format: date-time
+                    example: '2021-09-29T16:08:15+01:00'
+                required:
+                - latest_timestamp
+        '400':
+          description: id parameter missing
+        '404':
+          description: device not found
+  "/api/v1/readings/cumulative_count":
+    get:
+      summary: fetches cumulative count for a device
+      tags:
+      - readings
+      parameters:
+      - name: id
+        in: query
+        required: true
+        example: 36d5658a-6908-479e-887e-a949ec199272
+        schema:
+          type: string
+      responses:
+        '200':
+          description: cumulative count found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cumulative_count:
+                    type: integer
+                    example: 5
+                required:
+                - cumulative_count
+        '400':
+          description: id parameter missing
+        '404':
+          description: device not found
 servers:
 - url: http://{defaultHost}
   variables:

@@ -23,16 +23,16 @@ module Api
       end
 
       def latest_timestamp
-        return render json: { errors: 'Device id not found' }, status: :not_found if @@events[params[:id]].nil?
+        return render json: { errors: 'Device id not found' }, status: :not_found if @@events[id_param].nil?
 
-        latest_timestamp = @@events[params[:id]].max_by { |reading| reading[:timestamp] }[:timestamp]
+        latest_timestamp = @@events[id_param].max_by { |reading| reading[:timestamp] }[:timestamp]
 
         render json: { latest_timestamp: latest_timestamp }
       end
 
       def cumulative_count
-        return render json: { errors: 'Device id not found' }, status: :not_found if @@events[params[:id]].nil?
-        cumulative_count = @@events[params[:id]].sum { |reading| reading[:count] }
+        return render json: { errors: 'Device id not found' }, status: :not_found if @@events[id_param].nil?
+        cumulative_count = @@events[id_param].sum { |reading| reading[:count] }
 
         render json: { cumulative_count: cumulative_count }
       end
@@ -41,6 +41,10 @@ module Api
 
       def reading_params
         params.require(:reading).permit(:id, readings: %i[timestamp count])
+      end
+
+      def id_param
+        params.require(:id)
       end
     end
   end

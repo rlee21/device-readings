@@ -43,10 +43,7 @@ RSpec.describe Api::V1::ReadingsController do
 
     context 'when readings param has incorrect type' do
       let(:params) do
-        {
-          id: '16d5658a-6908-479e-887e-a949ec199272',
-          readings: 'string'
-        }
+        { id: '16d5658a-6908-479e-887e-a949ec199272', readings: 'string' }
       end
       let(:errors) do
         { 'errors' => { 'readings' => ["can't be blank", 'readings must be an array'] } }
@@ -65,11 +62,17 @@ RSpec.describe Api::V1::ReadingsController do
     context 'when device id is not found' do
       let(:errors) { { 'errors' => 'Device id not found' } }
 
-      it 'returns the latest timestamp' do
+      it 'returns not found' do
         get :latest_timestamp, params: { id: '99999999-9999-9999-9999-999999999999' }
 
         expect(response).to have_http_status(:not_found)
         expect(response.body).to eq(errors.to_json)
+      end
+    end
+
+    context 'when id params is missing' do
+      it 'raises a parameter missing error' do
+        expect { get :latest_timestamp }.to raise_error(ActionController::ParameterMissing)
       end
     end
 
@@ -126,11 +129,17 @@ RSpec.describe Api::V1::ReadingsController do
     context 'when device id is not found' do
       let(:errors) { { 'errors' => 'Device id not found' } }
 
-      it 'returns the correct cumulative count' do
+      it 'returns not found' do
         get :cumulative_count, params: { id: '99999999-9999-9999-9999-999999999999' }
 
         expect(response).to have_http_status(:not_found)
         expect(response.body).to eq(errors.to_json)
+      end
+    end
+
+    context 'when id param is missing' do
+      it 'raises a parameter missing error' do
+        expect { get :cumulative_count }.to raise_error(ActionController::ParameterMissing)
       end
     end
 

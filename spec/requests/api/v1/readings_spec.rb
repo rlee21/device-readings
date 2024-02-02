@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 require 'swagger_helper'
 
-RSpec.describe 'api/v1/readings', type: :request do
-
+RSpec.describe 'Device Readings API' do
   path '/api/v1/readings' do
-
-    post 'creates a reading'  do
-      tags 'Readings'
+    post 'creates a reading' do
+      tags 'readings'
       consumes 'application/json'
       parameter name: :request_body, in: :body, schema: {
         type: :object,
@@ -26,7 +26,7 @@ RSpec.describe 'api/v1/readings', type: :request do
         required: %w[id readings]
       }
 
-      response(201, 'reading created') do
+      response 201, 'reading created' do
         let(:request_body) do
           {
             id: '36d5658a-6908-479e-887e-a949ec199272',
@@ -39,44 +39,72 @@ RSpec.describe 'api/v1/readings', type: :request do
         run_test!
       end
 
-      # response '422', 'invalid request' do
-      #   let(:request_body) { { readings: 'invalid' } }
-      #   run_test!
-      # end
+      response '422', 'invalid request' do
+        let(:request_body) { { readings: 'invalid' } }
+        run_test!
+      end
     end
   end
 
-  # path '/api/v1/readings/latest_timestamp' do
+  path '/api/v1/readings/latest_timestamp' do
+    get 'fetches latest timestamp for a device' do
+      tags 'readings'
+      produces 'application/json'
+      parameter name: :id, in: :query, type: :string, required: true, example: '36d5658a-6908-479e-887e-a949ec199272'
 
-  #   get('latest_timestamp reading') do
-  #     response(200, 'successful') do
+      response 200, 'latest timestamp found' do
+        schema type: :object,
+          properties: {
+            latest_timestamp: { type: :string, format: 'date-time', example: '2021-09-29T16:08:15+01:00' }
+          },
+          required: [ 'latest_timestamp' ]
 
-  #       after do |example|
-  #         example.metadata[:response][:content] = {
-  #           'application/json' => {
-  #             example: JSON.parse(response.body, symbolize_names: true)
-  #           }
-  #         }
-  #       end
-  #       run_test!
-  #     end
-  #   end
-  # end
+        let(:id) { '36d5658a-6908-479e-887e-a949ec199272' }
 
-  # path '/api/v1/readings/cumulative_count' do
+        run_test!
+      end
 
-  #   get('cumulative_count reading') do
-  #     response(200, 'successful') do
+      response 400, 'id parameter missing' do
+        let(:id) { nil }
+        run_test!
+      end
 
-  #       after do |example|
-  #         example.metadata[:response][:content] = {
-  #           'application/json' => {
-  #             example: JSON.parse(response.body, symbolize_names: true)
-  #           }
-  #         }
-  #       end
-  #       run_test!
-  #     end
-  #   end
-  # end
+      response 404, 'device not found' do
+        let(:id) { '99999999-9999-9999-9999-999999999999' }
+
+        run_test!
+      end
+    end
+  end
+
+  path '/api/v1/readings/cumulative_count' do
+    get 'fetches cumulative count for a device' do
+      tags 'readings'
+      produces 'application/json'
+      parameter name: :id, in: :query, type: :string, required: true, example: '36d5658a-6908-479e-887e-a949ec199272'
+
+      response 200, 'cumulative count found' do
+        schema type: :object,
+          properties: {
+            cumulative_count: { type: :integer, example: 5 }
+          },
+          required: [ 'cumulative_count' ]
+
+        let(:id) { '36d5658a-6908-479e-887e-a949ec199272' }
+
+        run_test!
+      end
+
+      response 400, 'id parameter missing' do
+        let(:id) { nil }
+        run_test!
+      end
+
+      response 404, 'device not found' do
+        let(:id) { '99999999-9999-9999-9999-999999999999' }
+
+        run_test!
+      end
+    end
+  end
 end

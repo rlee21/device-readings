@@ -10,7 +10,7 @@ readings. There is a requirement not to persist data to disk but rather store in
   - [Run Linter](#run-linter)
 - [API Documentation](#api-documentation)
 - [Project Structure](#project-structure)
-- [Improvements](#Improvements)
+- [Possible Improvements](#possible-improvements)
 
 ## Getting Started
 

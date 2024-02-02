@@ -32,6 +32,7 @@ module Api
 
       def cumulative_count
         return render json: { errors: 'Device id not found' }, status: :not_found if @@events[id_param].nil?
+
         cumulative_count = @@events[id_param].sum { |reading| reading[:count] }
 
         render json: { cumulative_count: cumulative_count }

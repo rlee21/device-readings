@@ -15,6 +15,12 @@ Layout/LineLength:
   Exclude:
     - 'spec/**/*'
 
+RSpec:
+  Language:
+    Includes:
+      Examples:
+        - run_test! # rswag tests use `run_test!` as examples and without this rubocop will create RSpec/EmptyExampleGroup violations
+
 RSpec/MultipleExpectations:
   Enabled: true
   Max: 15

@@ -36,11 +36,13 @@ RSpec.describe 'Device Readings API' do
             ]
           }
         end
+
         run_test!
       end
 
       response '422', 'invalid request' do
         let(:request_body) { { readings: 'invalid' } }
+
         run_test!
       end
     end
@@ -54,10 +56,10 @@ RSpec.describe 'Device Readings API' do
 
       response 200, 'latest timestamp found' do
         schema type: :object,
-          properties: {
-            latest_timestamp: { type: :string, format: 'date-time', example: '2021-09-29T16:08:15+01:00' }
-          },
-          required: [ 'latest_timestamp' ]
+               properties: {
+                 latest_timestamp: { type: :string, format: 'date-time', example: '2021-09-29T16:08:15+01:00' }
+               },
+               required: ['latest_timestamp']
 
         let(:id) { '36d5658a-6908-479e-887e-a949ec199272' }
 
@@ -66,6 +68,7 @@ RSpec.describe 'Device Readings API' do
 
       response 400, 'id parameter missing' do
         let(:id) { nil }
+
         run_test!
       end
 
@@ -85,10 +88,10 @@ RSpec.describe 'Device Readings API' do
 
       response 200, 'cumulative count found' do
         schema type: :object,
-          properties: {
-            cumulative_count: { type: :integer, example: 17 }
-          },
-          required: [ 'cumulative_count' ]
+               properties: {
+                 cumulative_count: { type: :integer, example: 17 }
+               },
+               required: ['cumulative_count']
 
         let(:id) { '36d5658a-6908-479e-887e-a949ec199272' }
 
@@ -97,6 +100,7 @@ RSpec.describe 'Device Readings API' do
 
       response 400, 'id parameter missing' do
         let(:id) { nil }
+
         run_test!
       end
 

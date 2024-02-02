@@ -9,7 +9,8 @@ services:
     volumes:
       - .:/app
     ports:
-      - "3000:3000"
+      # Bind to dynamic port that is set in .env file
+      - "${DOCKER_WEB_PORT}:3000"
     environment:
       - ENABLE_BOOTSNAP=false
     tty: true

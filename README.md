@@ -11,6 +11,7 @@ readings. There is a requirement not to persist data to disk but rather store in
 - [API Documentation](#api-documentation)
 - [Project Structure](#project-structure)
 - [Improvements](#Improvements)
+
 ## Getting Started
 
 ### Install Dependencies
@@ -62,7 +63,17 @@ readings. There is a requirement not to persist data to disk but rather store in
 
 ## API Documentation
 
-- Run server and see documentation [here](http://localhost:3000/api-docs/index.html).
+- Swagger docs are generated via rswag and can be accessed at [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
+- Request specs defined in `spec/requests/api/v1` define the swagger definition for each endpoint
+- To regenerate the `swagger.yaml` file, run the following command, validate the swagger docs, and commit the changes:
+  - Native
+  ```sh
+  RAILS_ENV=test bin/rails rswag
+  ```
+  - Docker
+  ```sh
+  docker compose run --rm -e "RAILS_ENV=test" web bin/rails rswag
+  ```
 
 ## Project Structure
 

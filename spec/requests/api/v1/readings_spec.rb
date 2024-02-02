@@ -4,7 +4,7 @@ require 'swagger_helper'
 
 RSpec.describe 'Device Readings API' do
   path '/api/v1/readings' do
-    post 'creates a reading' do
+    post 'creates reading' do
       tags 'readings'
       consumes 'application/json'
       parameter name: :request_body, in: :body, schema: {

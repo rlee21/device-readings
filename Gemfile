@@ -13,6 +13,7 @@ gem 'webrick', '~> 1.8'                         # Use WEBrick instead of Puma be
 
 group :development, :test do
   gem 'debug', platforms: %i[mri windows]
+  gem 'dotenv-rails', '~> 2.8'
   gem 'pry-rails', '~> 0.3.9'
   gem 'rspec-rails', '~> 6.1'
   gem 'rswag-specs', '~> 2.13'

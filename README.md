@@ -1,27 +1,70 @@
 # device-readings
 
 Web API that receives and processes device
-readings. There is a requirement not to persist data to disk and must be stored in-memory. Thus, in order to avoid possible race conditions, the web server is [WEBrick](https://rubygems.org/gems/webrick) instead of [Puma](https://rubygems.org/gems/puma) because it's single-threaded.
+readings. There is a requirement not to persist data to disk but rather store in-memory. Thus, in order to avoid possible race conditions, the web server is [WEBrick](https://rubygems.org/gems/webrick) instead of [Puma](https://rubygems.org/gems/puma) because it's single-threaded.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+- [Getting Started](#getting-started)
+  - [Install Dependencies](#install-dependencies)
+  - [Run Server](#run-server)
+  - [Run Tests](#run-tests)
+  - [Run Linter](#run-linter)
+- [API Documentation](#api-documentation)
+- [Project Structure](#project-structure)
+- [Improvements](#Improvements)
+## Getting Started
 
-Things you may want to cover:
+### Install Dependencies
 
-* Ruby version
+- Native
+  ```sh
+  bundle install
+  ```
 
-* System dependencies
+- Docker
+  ```sh
+  docker compose build
+  ```
 
-* Configuration
+### Run Server
 
-* Database creation
+- Native
+  ```sh
+  bin/rails server
+  ```
 
-* Database initialization
+- Docker
+  ```sh
+  docker compose up
+  ```
+### Run Tests
 
-* How to run the test suite
+- Native
+  ```sh
+  RAILS_ENV=test bin/rspec
+  ```
 
-* Services (job queues, cache servers, search engines, etc.)
+- Docker
+  ```sh
+  docker compose run --rm -e "RAILS_ENV=test" web bin/rspec
+  ```
 
-* Deployment instructions
+### Run Linter
 
-* ...
+- Native
+  ```sh
+  RAILS_ENV=test bin/rubocop
+  ```
+
+- Docker
+  ```sh
+  docker compose run --rm web bin/rubocop
+  ```
+
+## API Documentation
+
+- Run server and see documentation [here](http://localhost:3000/api-docs/index.html).
+
+## Project Structure
+
+## Improvements
+

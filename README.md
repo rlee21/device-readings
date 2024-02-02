@@ -4,7 +4,7 @@ Web API that receives and processes device
 readings. There is a requirement not to persist data to disk but rather store in-memory. Thus, in order to avoid possible race conditions, the web server is [WEBrick](https://rubygems.org/gems/webrick) instead of [Puma](https://rubygems.org/gems/puma) because it's single-threaded.
 
 - [Getting Started](#getting-started)
-  - [Install Dependencies](#install-dependencies)
+  - [Setup](#setup)
   - [Run Server](#run-server)
   - [Run Tests](#run-tests)
   - [Run Linter](#run-linter)
@@ -14,17 +14,24 @@ readings. There is a requirement not to persist data to disk but rather store in
 
 ## Getting Started
 
-### Install Dependencies
+### Setup
 
-- Native
+- Set your environment variables
+
   ```sh
-  bundle install
+  cp -i ./.env.template ./.env
   ```
 
-- Docker
-  ```sh
-  docker compose build
-  ```
+- Install dependencies
+  - Native
+    ```sh
+    bundle install
+    ```
+
+  - Docker
+    ```sh
+    docker compose build
+    ```
 
 ### Run Server
 

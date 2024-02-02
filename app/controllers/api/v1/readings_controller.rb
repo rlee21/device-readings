@@ -6,9 +6,9 @@ module Api
       @@events = {}
 
       def create
-        input = Api::V1::DeviceForm.new(reading_params)
+        input = Api::V1::ReadingForm.new(reading_params)
 
-        return render json: input.errors, status: :unprocessable_entity if input.invalid?
+        return render json: { errors: input.errors }, status: :unprocessable_entity if input.invalid?
 
         device_id = reading_params[:id]
         readings = reading_params[:readings]
@@ -23,15 +23,16 @@ module Api
       end
 
       def latest_timestamp
-        device_id = params[:id]
-        latest_timestamp = @@events[device_id].max_by { |reading| reading[:timestamp] }[:timestamp]
+        return render json: { errors: 'Device id not found' }, status: :not_found if @@events[params[:id]].nil?
+
+        latest_timestamp = @@events[params[:id]].max_by { |reading| reading[:timestamp] }[:timestamp]
 
         render json: { latest_timestamp: latest_timestamp }
       end
 
       def cumulative_count
-        device_id = params[:id]
-        cumulative_count = @@events[device_id].sum { |reading| reading[:count] }
+        return render json: { errors: 'Device id not found' }, status: :not_found if @@events[params[:id]].nil?
+        cumulative_count = @@events[params[:id]].sum { |reading| reading[:count] }
 
         render json: { cumulative_count: cumulative_count }
       end

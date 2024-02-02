@@ -6,14 +6,17 @@ module Api
       include ActiveModel::Model
       include ActiveModel::Attributes
 
-      attribute :timestamp, :datetime
-      attribute :count, :integer
+      attribute :id, :string
+      attribute :readings, array: true
 
-      validates_presence_of :timestamp, :count
-      validates_numericality_of :count, only_integer: true
+      validates_presence_of :id, :readings
+
+      validates_each :id do |record, attribute, value|
+        record.errors.add attribute, 'id must be a string' unless value.is_a?(String)
+      end
 
       validates_each :readings do |record, attribute, value|
-        record.errors.add attribute, 'readings must be a hash' unless value.is_a?(Hash)
+        record.errors.add attribute, 'readings must be an array' unless value.is_a?(Array)
       end
     end
   end

@@ -63,7 +63,7 @@ readings. There is a requirement not to persist data to disk but rather store in
 
 ## API Documentation
 
-- Swagger docs are generated via rswag and can be accessed at [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
+- Swagger docs are generated via `rswag` and can be accessed at [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
 - Request specs defined in `spec/requests/api/v1` define the swagger definition for each endpoint
 - To regenerate the `swagger.yaml` file, run the following command, validate the swagger docs, and commit the changes:
   - Native

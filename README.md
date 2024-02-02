@@ -86,7 +86,7 @@ readings. There is a requirement not to persist data to disk but rather store in
 ## Possible Improvements
 - Better validation of nested input parameters (e.g. `timestamp` and `count`)
   - consider using `json-schema` or `dry-validation` gems
-- Optimize by using Rails cache instead of a class instance variable to store data in-memory
+- Optimize by using Rails cache instead of a class variable to store data in-memory
 - Logging and monitoring using `Sentry` and `Datadog`
 - Rate limiting
 - Extract schema defined in `spec/requests/api/v1/readings_spec.rb` for the post request into a separate file in a `spec/schemas` directory

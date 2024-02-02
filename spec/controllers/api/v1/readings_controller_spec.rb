@@ -30,7 +30,7 @@ module Api
             {
               'errors' => {
                 'id' => ["can't be blank", 'id must be a string'],
-                'readings' => ["can't be blank", 'readings must be an array']
+                'readings' => ["can't be blank", 'readings must be an array of hashes']
               }
             }
           end
@@ -48,7 +48,7 @@ module Api
             { id: '16d5658a-6908-479e-887e-a949ec199272', readings: 'string' }
           end
           let(:errors) do
-            { 'errors' => { 'readings' => ["can't be blank", 'readings must be an array'] } }
+            { 'errors' => { 'readings' => ["can't be blank", 'readings must be an array of hashes'] } }
           end
 
           it 'returns a client error' do

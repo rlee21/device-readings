@@ -15,6 +15,9 @@ Layout/LineLength:
   Exclude:
     - 'spec/**/*'
 
+Metrics/ModuleLength:
+  Max: 160
+
 RSpec:
   Language:
     Includes:

@@ -5,6 +5,10 @@ require 'rails_helper'
 module Api
   module V1
     RSpec.describe Api::V1::ReadingsController do
+      before do
+        described_class.events = {}
+      end
+
       describe '#create' do
         context 'when params are valid' do
           let(:params) do
@@ -16,11 +20,13 @@ module Api
               ]
             }
           end
+          let(:file) { Rails.root.join("config/#{Rails.env}_data.json") }
 
           it 'stores readings for a given device' do
             post :create, params: params, as: :json
 
             expect(response).to have_http_status(:created)
+            expect(file.read).to eq({ params[:id] => params[:readings] }.to_json)
           end
         end
 

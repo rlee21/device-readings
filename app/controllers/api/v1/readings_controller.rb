@@ -5,7 +5,7 @@ module Api
     class ReadingsController < ApplicationController
       @@events ||= {}
 
-      def create
+      def create # rubocop:disable Metrics/AbcSize
         input = Api::V1::ReadingForm.new(reading_params)
 
         return render json: { errors: input.errors }, status: :unprocessable_entity if input.invalid?
